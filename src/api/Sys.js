@@ -1,13 +1,15 @@
 import http from '@/utils/http'
 
 export default {
+  findAuthMenu (params) {
+    return http.post('/hxufs/loadTree.act', params)
+  },
+
   findSysDictItem (okCb, errCb) {
-    return http.post('/cash_settle/bs/SysDictItem/search.action', {
-      page: 1,
-      rows: -1
-    }, okCb, errCb)
+    return http.post('/api/syscode/viewAll.action')
   },
-  search (params) {
-    return http.post('/cash_settle/bs/SysDictItem/search.action', params)
-  },
+
+  findLicensedMenuEasyUI (okCb, errCb) {
+    return http.post('/hxufs/UwMenu/findLicensedMenuEasyUI.action')
+  }
 }

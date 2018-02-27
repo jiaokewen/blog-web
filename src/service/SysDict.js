@@ -16,8 +16,18 @@ export default {
 
   translate (dictCode, dictItemCode) {
     let found = dict.find(item => {
-      return item.dictCode === dictCode && item.dictItemCode === dictItemCode
+      return item.codeTypeName === dictCode && item.codeValue === dictItemCode
     })
-    return found.dictItemValue || '?'
+    return found.codeName || '?'
   },
+
+  findList (dictCode) {
+    let found = []
+    dict.map(item => {
+      if (item.codeTypeName === dictCode) {
+        found.push(item)
+      }
+    })
+    return found
+  }
 }

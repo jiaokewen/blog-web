@@ -1,4 +1,5 @@
 @import './var';
+@import '~iview/src/styles/index.less';
 
 .bg-light-blue {
   background-color: @col-light-blue !important;
@@ -135,6 +136,14 @@
   margin-bottom: 10px;
 }
 
+.ivu-menu-light.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu) {
+  color: #fff;
+  background-color: #2d8cf0;
+}
+
 .tips {
   color: #aaa;
 }
+
+@menu-dark-title: #2D8CF0;
+@menu-dark-active-bg: #2D8CF0;

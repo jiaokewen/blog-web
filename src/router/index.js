@@ -3,7 +3,6 @@ import Router from 'vue-router'
 import Index from '@/pages/Index'
 import Login from '@/pages/Login'
 import * as R from '@/router/router-types'
-import Form from '@/pages/content/Form'
 import ContentManage from '@/pages/content/Manage'
 import ContentAdd from '@/pages/content/Add'
 import ContentEdit from '@/pages/content/Edit'
@@ -15,26 +14,40 @@ export default new Router({
       path: '/',
       name: 'Index',
       component: Index,
+      meta: {
+        auth: true,
+        bread: [{ name: '首页' }]
+      },
       children: [
-        {
-          path: '/form',
-          name: 'Form',
-          component: Form
-        },
         {
           path: R.kContentManage,
           name: 'ContentManage',
-          component: ContentManage
+          component: ContentManage,
+          meta: {
+            auth: true,
+            func: 'content_manage',
+            bread: [{ name: '首页', url: R.kIndex }, { name: '博客管理' }]
+          }
         },
         {
           path: R.kContentAdd,
           name: 'ContentAdd',
-          component: ContentAdd
+          component: ContentAdd,
+          meta: {
+            auth: true,
+            func: 'content_add',
+            bread: [{ name: '首页', url: R.kIndex }, { name: '添加文章' }]
+          }
         },
         {
           path: '/content/edit',
           name: 'ContentEdit',
-          component: ContentEdit
+          component: ContentEdit,
+          meta: {
+            auth: true,
+            func: 'content_edit',
+            bread: [{ name: '首页', url: R.kIndex }, { name: '编辑文章' }]
+          }
         },
       ]
     }, {

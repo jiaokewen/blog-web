@@ -6,19 +6,16 @@ import router from './router'
 import VueResource from 'vue-resource'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
-import 'vis/dist/vis.css'
 import store from '@/store'
-import indicator from '@/components/index'
-// 引入echarts
-import echarts from 'echarts'
-import vis from 'vis'
+import '@/filters/filters'
+import './assets/css/theme.less'
 
-Vue.prototype.$vis = vis
-Vue.prototype.$echarts = echarts
+import TcUI from '@/components'
+Vue.use(TcUI)
 
-Vue.use(indicator)
 Vue.use(VueResource)
 Vue.use(iView)
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

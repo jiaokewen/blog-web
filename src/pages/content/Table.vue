@@ -12,6 +12,7 @@
 </template>
 <script>
 import Util from '@/utils/util'
+import sysDictService from '@/service/SysDict'
 
 export default {
   props: ['data', 'total', 'currentPage'],
@@ -35,7 +36,14 @@ export default {
       }, {
         title: '开启评论',
         key: 'allowComment',
-        align: 'center'
+        align: 'center',
+        render: (h, params) => {
+          return h('Tag', {
+            props: {
+              color: this.data[params.index].allowComment === '1' ? 'green' : 'red'
+            }
+          }, sysDictService.translate('allow_comment', this.data[params.index].allowComment))
+        }
       }, {
         title: '操作',
         align: 'center',

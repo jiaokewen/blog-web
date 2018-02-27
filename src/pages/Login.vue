@@ -69,6 +69,7 @@ export default {
         this.loading = true
         userApi.login(this.loginForm.username.trim(), this.loginForm.password.trim()).then((resp) => {
           this.loading = false
+          console.log(resp)
           if (resp.success) {
             UserService.localLogin(resp.rows)
             this.$Notice.success({ title: '登录成功' })

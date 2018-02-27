@@ -11,6 +11,7 @@ export default {
       top: 50,
       duration: 6
     })
+    // this.$router.push('/')
   }
 }
 </script>
