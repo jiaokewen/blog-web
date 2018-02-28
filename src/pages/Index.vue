@@ -2,7 +2,7 @@
   <div class="layout">
       <div class="layout-header">
         <div class="layout-header__logo">
-           <p style="font-size: 20px;color: #fff">博客后台管理系统</p>
+           <p style="font-size: 30px;color: #fff">博客后台管理系统</p>
         </div>
         <!-- <div @click="refreshCache" class="layout-header__btn">
           <Icon type="refresh"></Icon>
@@ -114,6 +114,10 @@ export default {
     };
   },
   mounted() {
+    if (!UserService.hasUserSession()) {
+      this.$router.replace({ path: "/login" })
+      return
+    }
     Promise.all([
       SysDict.load()
     ]).then(() => {

@@ -38,7 +38,7 @@ export default {
     })
   },
   logout () {
-    return http.logOut('/cash_settle/backend/User/logout.action')
+    return http.logOut('/api/logout')
   },
   validateUser (user) {
     return http.postJSON('/cash_settle/backend/User/validateUser.action', user)
