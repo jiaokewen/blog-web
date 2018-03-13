@@ -16,4 +16,7 @@ export default {
   delete (cid) {
     return http.post('/api/system/blog/delete', {cid})
   },
+  findFatcher (typeId) {
+    return http.post('/api/ContentType/findFatcher.action', {typeId})
+  }
 }

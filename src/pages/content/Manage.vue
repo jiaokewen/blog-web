@@ -9,10 +9,10 @@
   </div>
 </template>
 <script>
-import SearchForm from "./SearchForm";
-import ContentTable from "./Table";
-import Api from "@/api/Content";
-import * as R from "@/router/router-types";
+import SearchForm from "./SearchForm"
+import ContentTable from "./Table"
+import Api from "@/api/Content"
+import * as R from "@/router/router-types"
 export default {
   data() {
     return {
@@ -53,13 +53,12 @@ export default {
       });
     },
     loadData() {
-      this.$indicator.open();
+      this.$indicator.open()
       Api.search({
         page: this.currentPage,
         rows: this.pageSize,
         exampleJson: JSON.stringify(this.params)
-      })
-        .then(resp => {
+      }).then(resp => {
           if (resp.success) {
             this.total = resp.total;
             this.data = resp.rows;
@@ -72,7 +71,7 @@ export default {
         .catch(err => {
           this.$Notice.error({ title: "加载数据失败", desc: err });
           this.$indicator.close();
-        });
+        })
     },
 
     edit(cid) {

@@ -94,29 +94,37 @@ export default {
       this.$refs.form.validate(valid => {
         if (valid) {
           if (this.blogContent.StatusOn) {
-            this.blogContent.allowComment = "1";
+            this.blogContent.allowComment = "1"
           } else {
-            this.blogContent.allowComment = "0";
+            this.blogContent.allowComment = "0"
           }
-          this.$emit("onSave", this.blogContent);
+          this.$emit("onSave", this.blogContent)
         } else {
-          this.$Message.error("表单验证失败!");
+          this.$Message.error("表单验证失败!")
         }
       });
     },
     cancel() {
-      this.$emit("onCancel");
+      this.$emit("onCancel")
     },
     initData (item) {
+      TypeApi.findFatcher(item.typeId).then(resp => {
+        if (resp.success) {
+          this.blogContent.typeId = resp.rows.reverse()
+        } else {
+          this.$Message.error("加载数据失败")
+        }
+      }).catch(err => {
+        this.$Notice.error({ title: "加载数据失败", desc: err })
+      })
       this.blogContent.cid = item.cid
       this.blogContent.title = item.title
-      this.blogContent.typeId = [1, 2, 3]
       this.blogContent.contentRemark = item.contentRemark
       this.$refs.summernote.initConent(item.content)
       if (item.allowComment === "1") {
-        this.blogContent.StatusOn = true;
+        this.blogContent.StatusOn = true
       } else {
-        this.blogContent.StatusOn = false;
+        this.blogContent.StatusOn = false
       }
     }
   }
