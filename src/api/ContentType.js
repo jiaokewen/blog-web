@@ -2,7 +2,7 @@ import http from '@/utils/http'
 
 export default {
   search (params) {
-    return http.post('/api/system/blog/search', params)
+    return http.post('/api/ContentType/search.action', params)
   },
   findById (cid) {
     return http.get('/api/system/blog/findById', {cid})

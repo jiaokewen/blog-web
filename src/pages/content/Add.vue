@@ -9,6 +9,7 @@ import Api from '@/api/Content'
 export default {
   methods: {
     onSave (item) {
+      item.typeId = item.typeId[item.typeId.length - 1]
       this.$indicator.open()
       Api.create(item).then(resp => {
         if (resp.success) {

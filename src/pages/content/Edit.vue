@@ -14,7 +14,6 @@ export default {
     Api.findById(this.$route.params.cid)
       .then(resp => {
         if (resp.success) {
-          console.log(resp.rows)
           this.$refs.form.initData(resp.rows);
         } else {
           this.$Message.error(`获取信息失败${resp.message || ""}`);
@@ -31,6 +30,7 @@ export default {
 
   methods: {
     onSave(item) {
+      item.typeId = item.typeId[item.typeId.length - 1]
       this.$indicator.open();
       Api.update(item)
         .then(resp => {
