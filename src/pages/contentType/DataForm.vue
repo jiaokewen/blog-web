@@ -1,50 +1,56 @@
 <template>
-  <Form ref="dataForm" :model="dataModel" :rules="rules" :label-width="90"> <!-- 更换表单 -->
-    <FormItem label="名称:" prop="dictItemValue">
-      <Input v-model="dataModel.dictItemValue"  :disabled="disabled" placeholder="请输入名称" style="width: 170px"></Input>
+  <Form ref="dataForm" :model="dataModel" :rules="rules" :label-width="110"> <!-- 更换表单 -->
+    <FormItem label="分类名称:" prop="typeName">
+      <Input v-model="dataModel.typeName"  :disabled="disabled" placeholder="请输入分类名称" style="width: 170px"></Input>
     </FormItem>
-    <FormItem label="数据编码:" prop="dictItemCode">
-      <Input v-model="dataModel.dictItemCode" :disabled="disabled" placeholder="请输入数据编码" style="width: 170px"></Input>
-    </FormItem>
-    <FormItem label="等级:" prop="sortNumber">
-      <Input v-model="dataModel.sortNumber" onkeypress="return event.keyCode>=48&&event.keyCode<=57" ng-pattern="/[^a-zA-Z]/" :disabled="disabled" placeholder="请输入等级" style="width: 170px"></Input>
+    <FormItem label="父级分类:" prop="typeTypeId">
+      <Select :disabled="disabled" :filterable="true" v-model="dataModel.typeTypeId" style="width:200px">
+        <Option v-for="item in typeList" :value="item.typeId" :key="item.typeId">{{ item.typeName }}</Option>
+      </Select>
     </FormItem>
   </Form>
 </template>
 
 <script>
+import TargetApi from '@/api/ContentType' // 更换对应的API接口
 
 export default {
   props: ['disabled'],
   data () {
     return {
       dataModel: { // 更换表单内容
-        dictItemId: '',
-        dictId: '',
-        dictItemStatus: '1',
-        dictItemValue: '',
-        dictItemCode: '',
-        sortNumber: '',
-        note: '',
-        createTime: ''
+        typeId: '',
+        typeName: '',
+        typeTypeId: ''
       },
+      typeList: [],
       rules: { // 更换规则
-        dictItemValue: [
-          { required: true, message: '名称不能为空', trigger: 'blur' },
-          { type: 'string', max: 16, message: '名称不能大于16', trigger: 'blur' }
+        typeName: [
+          { required: true, message: '分类名称不能为空', trigger: 'blur' },
+          { type: 'string', max: 16, message: '分类名称不能大于16', trigger: 'blur' }
         ],
-        dictItemCode: [
-          { required: true, message: '数据编码不能为空', trigger: 'blur' },
-          { type: 'string', max: 16, message: '数据编码不能大于16', trigger: 'blur' }
-        ],
-        sortNumber: [
-          { required: true, message: '等级不能为空', trigger: 'blur' },
-          { type: 'string', max: 12, message: '等级不能大于12', trigger: 'blur' }
+        typeTypeId: [
+          {required: true, type: 'number', message: '请选择父级分类', trigger: 'blur'}
         ]
       }
     }
   },
-
+  mounted () {
+    TargetApi.searchvl({
+      page: 1,
+      rows: -1
+    }).then(resp => {
+        if (resp.success) {
+          this.typeList = resp.rows
+          this.typeList.unshift({
+            typeId: -1,
+            typeName: '无'
+          })
+        } else {
+          this.$Message.error('加载数据失败')
+        }
+    })
+  },
   methods: {
     submit () {
       this.$refs.dataForm.validate((valid) => {
@@ -60,20 +66,13 @@ export default {
     },
     initData (initData) {
       this.reSetForm()
-      this.dataModel.dictItemId = initData.dictItemId
-      this.dataModel.dictItemValue = initData.dictItemValue
-      this.dataModel.dictItemCode = initData.dictItemCode
-      this.dataModel.dictId = initData.dictId
-      this.dataModel.note = initData.note
-      this.dataModel.createTime = initData.createTime
-      this.dataModel.sortNumber = initData.sortNumber.toString()
+      this.dataModel.typeId = initData.typeId
+      this.dataModel.typeName = initData.typeName
+      this.dataModel.typeTypeId = initData.typeTypeId
     },
     reSetForm () {
       this.$refs.dataForm.resetFields()
-      this.dataModel.dictItemId = ''
-      this.dataModel.dictId = ''
-      this.dataModel.note = ''
-      this.dataModel.createTime = ''
+      this.dataModel.typeId = ''
     }
   }
 }

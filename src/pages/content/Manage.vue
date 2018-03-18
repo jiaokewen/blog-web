@@ -4,7 +4,7 @@
     <Row class="toolbar">
       <Button @click="add" type="success" shape="circle" icon="plus">添加文章</Button>
     </Row>
-    <content-table :data="data" :total="total" :currentPage="currentPage" @pageChange="pageChange" @edit="edit">
+    <content-table :data="data" :total="total" :currentPage="currentPage" @pageChange="pageChange" @del="del" @edit="edit">
     </content-table>
   </div>
 </template>
@@ -24,33 +24,35 @@ export default {
     };
   },
   mounted() {
-    this.loadData();
+    this.loadData()
   },
   methods: {
     doSearch(params) {
-      this.currentPage = 1;
-      this.params = params;
-      this.loadData();
+      this.currentPage = 1
+      this.params = params
+      this.loadData()
     },
     add() {
       this.$router.push({ path: R.kContentAdd });
     },
-    viewCompany(cid) {
-      this.$router.push({
-        name: "CompanyView",
-        params: {
-          cid
+    del (item) {
+      this.$Modal.confirm({
+        title: '删除确认',
+        content: `确认要删除吗?`,
+        onOk: () => {
+          this.$indicator.open()
+          Api.delete(item).then(resp => {
+            if (resp.success) {
+              this.$Notice.success({ title: '删除成功' })
+              this.loadData()
+            }
+            this.$indicator.close()
+          }).catch(err => {
+            this.$Message.error(`删除失败(${err.message || ''})`)
+            this.$indicator.close()
+          })
         }
-      });
-    },
-    detailCompany(cid) {
-      debugger
-      this.$router.push({
-        name: "CompanyDetail",
-        params: {
-          cid
-        }
-      });
+      })
     },
     loadData() {
       this.$indicator.open()

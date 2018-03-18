@@ -77,7 +77,8 @@ import DistrictService from '@/service/DistrictService'
  * 适配器，适配原有的html页面的url到当前项目的router的url
  */
 let adaptor = {
-  content_menu: R.kContentManage
+  content_menu: R.kContentManage,
+  type_menu: R.KTypeManage
 };
 
 export default {
@@ -90,7 +91,7 @@ export default {
       activeName: undefined,
       bodyTop: 0,
       doneInit: false,
-      shopMenu: {
+      blogMenu: {
         menuGrade: 1,
         menuName: "博客管理",
         parentSupplierMenuId: -1,
@@ -110,7 +111,27 @@ export default {
             url: "content_menu"
           }
         ]
-      },
+      }, typeMenu: {
+        menuGrade: 1,
+        menuName: "分类管理",
+        parentSupplierMenuId: -1,
+        supplierMenuId: 10,
+        text: "分类管理",
+        url: null,
+        attributes: {},
+        children: [
+          {
+            attributes: { leaf: true },
+            children: [],
+            menuGrade: 2,
+            menuName: "分类管理",
+            parentSupplierMenuId: 10,
+            supplierMenuId: 101,
+            text: "分类管理",
+            url: "type_menu"
+          }
+        ]
+      }
     };
   },
   mounted() {
@@ -128,7 +149,8 @@ export default {
         this.$refs.body.addEventListener("scroll", this.handleScroll)
         this.menus = [
           ...this.menus,
-          this.shopMenu
+          this.blogMenu,
+          this.typeMenu
         ]
       })
     })

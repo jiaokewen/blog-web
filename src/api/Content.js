@@ -13,7 +13,7 @@ export default {
   create (params) {
     return http.postJSON('/api/system/blog/add', params)
   },
-  delete (cid) {
-    return http.post('/api/system/blog/delete', {cid})
+  delete (params) {
+    return http.postJSON('/api/system/blog/delete', params)
   },
 }

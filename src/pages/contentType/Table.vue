@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Table :data="data" :columns="columns" stripe>
+    <Table :data="data" height="350" :columns="columns" stripe>
     </Table>
     <div v-if="total > 0" style="margin: 10px; overflow: hidden;">
       <div style="float: right; ">
@@ -11,46 +11,49 @@
   </div>
 </template>
 <script>
-import Util from '@/utils/util'
-import sysDictService from '@/service/SysDict'
 
 export default {
   props: ['data', 'total', 'currentPage'],
   data () {
     return {
       columns: [{
-        title: '文章标题',
-        key: 'title',
+        title: 'ID',
+        key: 'typeId',
         align: 'center'
       }, {
-        title: '创建人',
-        key: 'userName',
+        title: '类别名',
+        key: 'typeName',
         align: 'center'
       }, {
         title: '创建时间',
         key: 'createTime',
-        align: 'center',
-        render: (h, params) => {
-          return h('div', Util.formatDate(this.data[params.index].createTime, 'yyyy-MM-dd hh:mm'))
-        }
+        align: 'center'
       }, {
-        title: '开启评论',
-        key: 'allowComment',
-        align: 'center',
-        render: (h, params) => {
-          return h('Tag', {
-            props: {
-              color: this.data[params.index].allowComment === '1' ? 'green' : 'red'
-            }
-          }, sysDictService.translate('allow_comment', this.data[params.index].allowComment))
-        }
+        title: '父级ID',
+        key: 'typeTypeId',
+        align: 'center'
       }, {
         title: '操作',
         align: 'center',
-        width: 250,
+        width: 280,
         render: (h, params) => {
           let item = this.data[params.index]
           return h('div', [
+            h('Button', {
+              props: {
+                type: 'primary',
+                size: 'small',
+                icon: 'search'
+              },
+              style: {
+                marginRight: '5px'
+              },
+              on: {
+                click: () => {
+                  this.$emit('view', item)
+                }
+              }
+            }),
             h('Button', {
               props: {
                 type: 'primary',
@@ -62,22 +65,7 @@ export default {
               },
               on: {
                 click: () => {
-                  this.$emit('edit', item.cid)
-                }
-              }
-            }),
-            h('Button', {
-              props: {
-                type: 'error',
-                size: 'small',
-                icon: 'trash-a'
-              },
-              style: {
-                marginRight: '5px'
-              },
-              on: {
-                click: () => {
-                  this.$emit('del', item)
+                  this.$emit('edit', item)
                 }
               }
             })

@@ -6,6 +6,7 @@ import * as R from '@/router/router-types'
 import ContentManage from '@/pages/content/Manage'
 import ContentAdd from '@/pages/content/Add'
 import ContentEdit from '@/pages/content/Edit'
+import ContentType from '@/pages/contentType/Manage'
 Vue.use(Router)
 
 export default new Router({
@@ -47,6 +48,16 @@ export default new Router({
             auth: true,
             func: 'content_edit',
             bread: [{ name: '首页', url: R.kIndex }, { name: '编辑文章' }]
+          }
+        },
+        {
+          path: '/content/type',
+          name: 'ContentType',
+          component: ContentType,
+          meta: {
+            auth: true,
+            func: 'content_edit',
+            bread: [{ name: '首页', url: R.kIndex }, { name: '分类管理' }]
           }
         },
       ]
