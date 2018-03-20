@@ -15,5 +15,5 @@ export default {
   },
   delete (params) {
     return http.postJSON('/api/system/blog/delete', params)
-  },
+  }
 }

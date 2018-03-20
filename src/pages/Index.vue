@@ -4,14 +4,6 @@
         <div class="layout-header__logo">
            <p style="font-size: 30px;color: #fff">博客后台管理系统</p>
         </div>
-        <!-- <div @click="refreshCache" class="layout-header__btn">
-          <Icon type="refresh"></Icon>
-          刷新缓存
-        </div> -->
-        <div @click="userset" class="layout-header__btn">
-          <Icon type="gear-a"></Icon>
-          用户设置
-        </div>
         <div @click="logout" class="layout-header__btn">
           <Icon type="log-out"></Icon>
           退出登录
@@ -78,7 +70,8 @@ import DistrictService from '@/service/DistrictService'
  */
 let adaptor = {
   content_menu: R.kContentManage,
-  type_menu: R.KTypeManage
+  type_menu: R.KTypeManage,
+  friend_menu: R.kFriendManage
 };
 
 export default {
@@ -131,6 +124,26 @@ export default {
             url: "type_menu"
           }
         ]
+      }, friendMenu: {
+        menuGrade: 1,
+        menuName: "友情链接",
+        parentSupplierMenuId: -1,
+        supplierMenuId: 10,
+        text: "友情链接",
+        url: null,
+        attributes: {},
+        children: [
+          {
+            attributes: { leaf: true },
+            children: [],
+            menuGrade: 2,
+            menuName: "友情链接管理",
+            parentSupplierMenuId: 10,
+            supplierMenuId: 101,
+            text: "友情链接管理",
+            url: "friend_menu"
+          }
+        ]
       }
     };
   },
@@ -150,7 +163,8 @@ export default {
         this.menus = [
           ...this.menus,
           this.blogMenu,
-          this.typeMenu
+          this.typeMenu,
+          this.friendMenu
         ]
       })
     })

@@ -7,6 +7,7 @@ import ContentManage from '@/pages/content/Manage'
 import ContentAdd from '@/pages/content/Add'
 import ContentEdit from '@/pages/content/Edit'
 import ContentType from '@/pages/contentType/Manage'
+import FriendManage from '@/pages/friend/Manage'
 Vue.use(Router)
 
 export default new Router({
@@ -58,6 +59,16 @@ export default new Router({
             auth: true,
             func: 'content_edit',
             bread: [{ name: '首页', url: R.kIndex }, { name: '分类管理' }]
+          }
+        },
+        {
+          path: R.kFriendManage,
+          name: 'FriendManage',
+          component: FriendManage,
+          meta: {
+            auth: true,
+            func: 'content_edit',
+            bread: [{ name: '首页', url: R.kIndex }, { name: '友情链接' }]
           }
         },
       ]
