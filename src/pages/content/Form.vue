@@ -13,10 +13,10 @@
     <FormItem label="内容">
       <summer-note ref="summernote" @getCode='getCode'></summer-note>
     </FormItem>
-    <FormItem label="允许评论" prop="allowComment">
+    <FormItem label="存为草稿" prop="isDelete">
       <i-switch v-model="blogContent.StatusOn" size="large">
-        <span slot="open">启用</span>
-        <span slot="close">禁用</span>
+        <span slot="open">是</span>
+        <span slot="close">否</span>
       </i-switch>
     </FormItem>
     <FormItem>
@@ -40,7 +40,7 @@ export default {
         title: "",
         typeId: [],
         contentRemark: "",
-        allowComment: "",
+        isDelete: "",
         content: "",
         StatusOn: false
       },
@@ -94,9 +94,9 @@ export default {
       this.$refs.form.validate(valid => {
         if (valid) {
           if (this.blogContent.StatusOn) {
-            this.blogContent.allowComment = "1"
+            this.blogContent.isDelete = "0"
           } else {
-            this.blogContent.allowComment = "0"
+            this.blogContent.isDelete = "1"
           }
           this.$emit("onSave", this.blogContent)
         } else {
@@ -121,7 +121,7 @@ export default {
       this.blogContent.title = item.title
       this.blogContent.contentRemark = item.contentRemark
       this.$refs.summernote.initConent(item.content)
-      if (item.allowComment === "1") {
+      if (item.isDelete === "0") {
         this.blogContent.StatusOn = true
       } else {
         this.blogContent.StatusOn = false

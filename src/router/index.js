@@ -8,6 +8,7 @@ import ContentAdd from '@/pages/content/Add'
 import ContentEdit from '@/pages/content/Edit'
 import ContentType from '@/pages/contentType/Manage'
 import FriendManage from '@/pages/friend/Manage'
+import IndexMessage from '@/pages/home/IndexMessage'
 Vue.use(Router)
 
 export default new Router({
@@ -16,11 +17,22 @@ export default new Router({
       path: '/',
       name: 'Index',
       component: Index,
+      redirect: R.kIndexMessage,
       meta: {
         auth: true,
         bread: [{ name: '首页' }]
       },
       children: [
+        {
+          path: R.kIndexMessage,
+          name: 'IndexMessage',
+          component: IndexMessage,
+          meta: {
+            auth: true,
+            func: 'index_message',
+            bread: [{ name: '首页' }]
+          }
+        },
         {
           path: R.kContentManage,
           name: 'ContentManage',

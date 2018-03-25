@@ -34,15 +34,15 @@ export default {
           return h('div', Util.formatDate(this.data[params.index].createTime, 'yyyy-MM-dd hh:mm'))
         }
       }, {
-        title: '开启评论',
-        key: 'allowComment',
+        title: '是否为草稿',
+        key: 'isDelete',
         align: 'center',
         render: (h, params) => {
           return h('Tag', {
             props: {
-              color: this.data[params.index].allowComment === '1' ? 'green' : 'red'
+              color: this.data[params.index].isDelete === '1' ? 'green' : 'red'
             }
-          }, sysDictService.translate('allow_comment', this.data[params.index].allowComment))
+          }, sysDictService.translate('is_delete', this.data[params.index].isDelete))
         }
       }, {
         title: '操作',
